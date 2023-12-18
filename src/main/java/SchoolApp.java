@@ -1,21 +1,25 @@
+import models.Courses;
 import models.Student;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SchoolApp {
     private String url = "jdbc:mysql://localhost:3307/";
     private String user = "root";
     private String password = "password";
     private Connection connection;
+
     public SchoolApp(){
 
     }
 
     // region CRUD
-    public void insertStudent(Student student){
+    public void insertStudent(Connection connection,Student student){
         String insertDataSQL = "INSERT INTO students (name, age) VALUES (?, ?);";
         try(PreparedStatement statement = this.connection.prepareStatement(insertDataSQL)){
             statement.setString(1, student.getName());
@@ -25,20 +29,28 @@ public class SchoolApp {
             e.printStackTrace();
         }
     }
+    public void insertCourses(Connection connection,Courses courses){
+        String insertDataSQL = "INSERT INTO courses (title, duration) VALUES (?, ?);";
+        try(PreparedStatement statement = this.connection.prepareStatement(insertDataSQL)){
+            statement.setString(1, courses.getTitle());
+            statement.setInt(2,courses.getDuration());
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
     // endregion
 
     // region вспомогательные методы
-    public void createDatabase(){
+    public void createDatabase(Connection connection){
         String createDatabaseSQL = "CREATE DATABASE IF NOT EXISTS schoolDB;";
-        this.connection = getConnection();
         try (PreparedStatement statement = connection.prepareStatement(createDatabaseSQL)){
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public void useDatabase(){
-        this.connection = getConnection();
+    public void useDatabase(Connection connection){
         String useDatabaseSQL = "USE schoolDB";
         try(PreparedStatement statement = connection.prepareStatement(useDatabaseSQL)){
             statement.execute();
@@ -46,8 +58,8 @@ public class SchoolApp {
             e.printStackTrace();
         }
     }
-    public void createTables(){
-        useDatabase();
+    public void createTables(Connection connection){
+        useDatabase(connection);
         String createTableCourses = "CREATE TABLE IF NOT EXISTS courses (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), duration INT);";
         try(PreparedStatement statement = connection.prepareStatement(createTableCourses)){
             statement.execute();
@@ -61,8 +73,8 @@ public class SchoolApp {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
+
     // endregion
 
     public String getUrl() {
@@ -89,16 +101,4 @@ public class SchoolApp {
         this.password = password;
     }
 
-    public Connection getConnection() {
-        try {
-            connection = DriverManager.getConnection(getUrl(), getUser(), getPassword());
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
 }

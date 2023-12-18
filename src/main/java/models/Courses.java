@@ -1,11 +1,15 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Courses {
     private int id;
     private String title;
     private int duration;
-
-
+    private static final Random random = new Random();
+    private static String[] titles = new String[]{"Информатика","Психология","Английский язык","Разработчик С#","Разработчик Java"};
 
     // region Constructors
     public Courses(){
@@ -24,6 +28,15 @@ public class Courses {
     }
     // endregion
 
+    // region вспомогательные методы
+    public static List<Courses> create(){
+        List<Courses> list = new ArrayList<>();
+        for (int i = 0; i < titles.length; i++) {
+            list.add(new Courses(titles[i], random.nextInt(1,3)));
+        }
+        return list;
+    }
+    // endregion
     @Override
     public String toString() {
         return "Courses{" +
