@@ -21,7 +21,7 @@ public class SchoolApp {
     // region CRUD
     public void insertStudent(Connection connection,Student student){
         String insertDataSQL = "INSERT INTO students (name, age) VALUES (?, ?);";
-        try(PreparedStatement statement = this.connection.prepareStatement(insertDataSQL)){
+        try(PreparedStatement statement = connection.prepareStatement(insertDataSQL)){
             statement.setString(1, student.getName());
             statement.setInt(2,student.getAge());
             statement.executeUpdate();
@@ -31,7 +31,7 @@ public class SchoolApp {
     }
     public void insertCourses(Connection connection,Courses courses){
         String insertDataSQL = "INSERT INTO courses (title, duration) VALUES (?, ?);";
-        try(PreparedStatement statement = this.connection.prepareStatement(insertDataSQL)){
+        try(PreparedStatement statement = connection.prepareStatement(insertDataSQL)){
             statement.setString(1, courses.getTitle());
             statement.setInt(2,courses.getDuration());
             statement.executeUpdate();
