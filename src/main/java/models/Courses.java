@@ -1,10 +1,16 @@
 package models;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Entity
+@Table(name="courses")
 public class Courses {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private int duration;
