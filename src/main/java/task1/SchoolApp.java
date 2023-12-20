@@ -9,9 +9,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class SchoolApp {
-    private String url = "jdbc:mysql://localhost:3307/";
-    private String user = "root";
-    private String password = "password";
+    //private String url = "jdbc:mysql://localhost:3308/";
+    private String url = "jdbc:mysql://192.168.9.41:3306/";
+    private String user = "chagan";
+    private String password = "admin";
     private Connection connection;
 
     public SchoolApp(){
@@ -181,6 +182,7 @@ public class SchoolApp {
 
     // endregion
 
+    // region getters
     public String getUrl() {
         return url;
     }
@@ -204,5 +206,5 @@ public class SchoolApp {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    // endregion
 }

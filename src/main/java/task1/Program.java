@@ -38,17 +38,17 @@ public class Program {
             schoolApp.createTables(connection);
             System.out.println("Создали таблицы");
 
-//            int count = random.nextInt(5,11);
-//            for (int i = 0; i < count; i++) {
-//                schoolApp.insertStudent(connection,Student.create());
-//            }
-//            System.out.println("Создали студентов");
+            int count = random.nextInt(5,11);
+            for (int i = 0; i < count; i++) {
+                schoolApp.insertStudent(connection,Student.create());
+            }
+            System.out.println("Создали студентов");
 
-//            List<Courses> courses = Courses.create();
-//            for (Courses course: courses) {
-//                schoolApp.insertCourses(connection,course);
-//            }
-//            System.out.println("Создали курсы");
+            List<Courses> courses = Courses.create();
+            for (Courses course: courses) {
+                schoolApp.insertCourses(connection,course);
+            }
+            System.out.println("Создали курсы");
 
 
             Collection<Student> students = schoolApp.readStudent(connection);

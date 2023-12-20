@@ -7,3 +7,5 @@
 * Убедитесь, что каждая операция выполняется в отдельной транзакции.
 
 ![Screen-docker](Screen-Docker.png)
+
+![Screen-hibernate](Screen-hibernate.png)
